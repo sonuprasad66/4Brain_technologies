@@ -6,9 +6,10 @@ import {
   FormLabel,
   Heading,
   Input,
+  Spinner,
   useToast,
 } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userSignup } from "../Redux/Auth/action";
 
@@ -17,6 +18,8 @@ export const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
+
+  const isLoading = useSelector((state) => state.AuthReducer.isLoading);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,9 +30,8 @@ export const Signup = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(userSignup(data))
-      .then((res) => {
-        console.log(res);
+    dispatch(userSignup(data)).then((res) => {
+      if (res.payload.message === "User Register Successful") {
         toast({
           title: res.payload.message,
           status: "success",
@@ -37,9 +39,8 @@ export const Signup = () => {
           isClosable: true,
           position: "top",
         });
-      })
-      .catch((err) => {
-        console.log(err);
+        navigate("/login");
+      } else {
         toast({
           title: res.payload.message,
           status: "error",
@@ -47,7 +48,8 @@ export const Signup = () => {
           isClosable: true,
           position: "top",
         });
-      });
+      }
+    });
   };
 
   return (
@@ -92,7 +94,19 @@ export const Signup = () => {
           </FormControl>
 
           <Button type="submit" w="full" mt={5} colorScheme="blue">
-            Sign Up
+            {isLoading ? (
+              <>
+                <Spinner
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                  size="md"
+                />
+              </>
+            ) : (
+              "Register"
+            )}
           </Button>
         </form>
       </Box>

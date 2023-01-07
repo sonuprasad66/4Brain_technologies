@@ -12,6 +12,23 @@ export const reducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case types.USER_SIGNUP_REQUEST:
+      return { ...state, isLoading: true, isError: false };
+
+    case types.USER_SIGNUP_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+      };
+
+    case types.USER_SIGNUP_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+
     case types.USER_LOGIN_REQUEST:
       return { ...state, isLoading: true, isError: false };
 
@@ -31,14 +48,6 @@ export const reducer = (state = initialState, action) => {
         isError: true,
         isAuth: false,
         loginUser: [],
-      };
-
-    case types.USER_PROFILE_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
-        currentUser: payload,
       };
 
     case types.USER_LOGOUT_SUCCESS:

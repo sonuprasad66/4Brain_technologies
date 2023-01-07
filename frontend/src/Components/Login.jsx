@@ -6,14 +6,20 @@ import {
   FormLabel,
   Heading,
   Input,
+  Spinner,
+  useToast,
 } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { userLogin } from "../Redux/Auth/action";
 
 export const Login = () => {
   const [data, setData] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toast = useToast();
+
+  const isLoading = useSelector((state) => state.AuthReducer.isLoading);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +31,27 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data);
+    dispatch(userLogin(data)).then((res) => {
+      console.log(res);
+      if (res.payload.message === "Verification OTP on your email") {
+        toast({
+          title: res.payload.message,
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+        navigate("/otp");
+      } else {
+        toast({
+          title: res.payload.message,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+      }
+    });
   };
 
   return (
@@ -54,7 +80,19 @@ export const Login = () => {
           </FormControl>
 
           <Button type="submit" w="full" mt={5} colorScheme="blue">
-            Login
+            {isLoading ? (
+              <>
+                <Spinner
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                  size="md"
+                />
+              </>
+            ) : (
+              "Login"
+            )}
           </Button>
         </form>
       </Box>
