@@ -6,7 +6,7 @@ const { transport } = require("./Transport");
 const userRegistration = async (req, res) => {
   const { name, email, mobile_number } = req.body;
 
-  if (name == "" || email == "" || mobile_number == "") {
+  if (name == " " || email == " " || mobile_number == " ") {
     res.send({ message: "Empty Input Fields!", status: "failed" });
   } else {
     const user = await userModel.findOne({ email: email });
@@ -52,7 +52,7 @@ const userLogin = async (req, res) => {
         }
       }
     );
-    res.status(200).send("Request has been completed");
+    res.send({ message: "Verification OTP on your email", status: 200 });
   } else {
     res.send({ message: "Please Create Account", status: "exist" });
   }
