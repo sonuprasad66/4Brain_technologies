@@ -69,7 +69,7 @@ export const Login = () => {
           <Heading textAlign={"center"} size="md">
             Login
           </Heading>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel>User Email </FormLabel>
             <Input
               type="email"

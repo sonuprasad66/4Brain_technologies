@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
   FormControl,
   FormLabel,
   Heading,
-  Input,
+  HStack,
+  PinInput,
+  PinInputField,
 } from "@chakra-ui/react";
 
 export const Otp = () => {
+  const [value, setValue] = useState();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(value);
+  };
+
   return (
     <>
       <Box
@@ -20,18 +29,20 @@ export const Otp = () => {
           boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
         }}
       >
-        <form>
+        <form onSubmit={handleSubmit}>
           <Heading textAlign={"center"} size="md">
             OTP Page
           </Heading>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel>Enter OTP </FormLabel>
-
-            {new Array(4).fill(1).map((item, index) => {
-              return (
-                <Input type="number" key={index} w={"50px"} h={"50px"} m={1} />
-              );
-            })}
+            <HStack>
+              <PinInput onChange={(e) => setValue(e)}>
+                <PinInputField />
+                <PinInputField />
+                <PinInputField />
+                <PinInputField />
+              </PinInput>
+            </HStack>
           </FormControl>
 
           <Button type="submit" w="full" mt={5} colorScheme="blue">
