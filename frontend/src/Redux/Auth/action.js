@@ -20,11 +20,28 @@ export const userLogin = (payload) => (dispatch) => {
   return axios
     .post(`http://localhost:8080/login`, payload)
     .then((res) => {
-      //   console.log(res.data.message);
-      return dispatch({ type: types.USER_LOGIN_SUCCESS, payload: res.data });
+      // console.log(res.data);
+      return dispatch({
+        type: types.USER_LOGIN_SUCCESS,
+        payload: res.data,
+      });
     })
     .catch((err) => {
       console.log(err);
       return dispatch({ type: types.USER_LOGIN_FAILURE, payload: err });
+    });
+};
+
+export const matchOtp = (payload) => (dispatch) => {
+  dispatch({ type: types.GENERATE_OTP_REQUEST });
+  return axios
+    .post(`http://localhost:8080/verifyotp`, payload)
+    .then((res) => {
+      console.log(res.data);
+      return dispatch({ type: types.GENERATE_OTP_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      console.log(err);
+      return dispatch({ type: types.GENERATE_OTP_FAILURE, payload: err });
     });
 };

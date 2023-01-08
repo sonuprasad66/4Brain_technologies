@@ -32,8 +32,8 @@ export const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(userLogin(data)).then((res) => {
-      console.log(res);
-      if (res.payload.message === "Verification OTP on your email") {
+      // console.log(res);
+      if (res.payload.message === "Verification OTP send on your email") {
         toast({
           title: res.payload.message,
           status: "success",

@@ -37,11 +37,32 @@ export const reducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: false,
+        loginUser: payload,
+        currentUser: payload.email,
+      };
+
+    case types.USER_LOGIN_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        loginUser: [],
+        currentUser: {},
+      };
+
+    case types.GENERATE_OTP_REQUEST:
+      return { ...state, isLoading: true, isError: false };
+
+    case types.GENERATE_OTP_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
         isAuth: true,
         loginUser: payload,
       };
 
-    case types.USER_LOGIN_FAILURE:
+    case types.GENERATE_OTP_FAILURE:
       return {
         ...state,
         isLoading: false,
