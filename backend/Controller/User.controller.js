@@ -52,13 +52,28 @@ const userLogin = async (req, res) => {
         }
       }
     );
-    res.send({ message: "Verification OTP on your email", status: 200 });
+    res.send({
+      message: "Verification OTP send on your email",
+      status: 200,
+      email: email,
+    });
   } else {
     res.send({ message: "Please Create Account", status: "exist" });
+  }
+};
+
+const matchOtp = async (req, res) => {
+  const { email, otp } = req.body;
+  const userOtp = await otpModel.findOne({ email: email, otp: otp });
+  if (userOtp) {
+    res.send({ message: "Login Successful", status: "success" });
+  } else {
+    res.send({ message: "Please Enter Correct OTP", status: "Failed" });
   }
 };
 
 module.exports = {
   userRegistration,
   userLogin,
+  matchOtp,
 };
