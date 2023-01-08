@@ -34,7 +34,7 @@ export const Otp = () => {
           isClosable: true,
           position: "top",
         });
-        navigate("/home");
+        navigate("/webcam");
       } else {
         toast({
           title: res.payload.message,

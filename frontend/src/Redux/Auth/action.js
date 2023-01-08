@@ -37,7 +37,7 @@ export const matchOtp = (payload) => (dispatch) => {
   return axios
     .post(`http://localhost:8080/verifyotp`, payload)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       return dispatch({ type: types.GENERATE_OTP_SUCCESS, payload: res.data });
     })
     .catch((err) => {
