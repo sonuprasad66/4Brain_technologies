@@ -26,7 +26,7 @@ export const Navbar = () => {
           boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
         }}
       >
-        <Link to="/home">
+        <Link to="/webcam">
           <Flex gap={1}>
             <Box
               p={"4px 10px"}
