@@ -4,7 +4,7 @@ import axios from "axios";
 export const getDetails = (payload) => (dispatch) => {
   dispatch({ type: types.GET_DETAILS_REQUEST });
   return axios
-    .get(`http://localhost:8080/getdetails/${payload}`)
+    .get(`https://fourbrain-technologies.onrender.com/getdetails/${payload}`)
     .then((res) => {
       // console.log(res.data);
       return dispatch({

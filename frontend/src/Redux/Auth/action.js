@@ -4,7 +4,7 @@ import axios from "axios";
 export const userSignup = (payload) => (dispatch) => {
   dispatch({ type: types.USER_SIGNUP_REQUEST });
   return axios
-    .post(`http://localhost:8080/register`, payload)
+    .post(`https://fourbrain-technologies.onrender.com/register`, payload)
     .then((res) => {
       //   console.log(res.data);
       return dispatch({ type: types.USER_SIGNUP_SUCCESS, payload: res.data });
@@ -18,7 +18,7 @@ export const userSignup = (payload) => (dispatch) => {
 export const userLogin = (payload) => (dispatch) => {
   dispatch({ type: types.USER_LOGIN_REQUEST });
   return axios
-    .post(`http://localhost:8080/login`, payload)
+    .post(`https://fourbrain-technologies.onrender.com/login`, payload)
     .then((res) => {
       // console.log(res.data);
       return dispatch({
@@ -35,7 +35,7 @@ export const userLogin = (payload) => (dispatch) => {
 export const matchOtp = (payload) => (dispatch) => {
   dispatch({ type: types.GENERATE_OTP_REQUEST });
   return axios
-    .post(`http://localhost:8080/verifyotp`, payload)
+    .post(`https://fourbrain-technologies.onrender.com/verifyotp`, payload)
     .then((res) => {
       // console.log(res.data);
       return dispatch({ type: types.GENERATE_OTP_SUCCESS, payload: res.data });
